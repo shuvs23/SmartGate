@@ -1,0 +1,648 @@
+/*
+ * SmartGate shared visual system
+ * Blue and white school-based entry management theme.
+ */
+
+:root {
+    --sg-blue-950: #062b63;
+    --sg-blue-900: #083b82;
+    --sg-blue-800: #0b4ea2;
+    --sg-blue-700: #1261c9;
+    --sg-blue-600: #2563eb;
+    --sg-blue-100: #dcecff;
+    --sg-blue-50: #eef6ff;
+    --sg-ink: #16324f;
+    --sg-muted: #63758a;
+    --sg-page: #f4f8fc;
+    --sg-border: #d9e4f0;
+    --sg-surface: #ffffff;
+    --sg-success: #178557;
+    --sg-danger: #c2414f;
+    --sg-warning: #a66a12;
+    --sg-shadow: 0 10px 28px rgba(20, 65, 115, 0.08);
+    --sg-shadow-soft: 0 3px 12px rgba(20, 65, 115, 0.06);
+    --sg-radius: 12px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--sg-ink);
+    background-color: var(--sg-page);
+    background-image:
+        linear-gradient(rgba(244, 248, 252, 0.88), rgba(244, 248, 252, 0.88)),
+        url("assets/bg_cap.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    line-height: 1.45;
+}
+
+body:has(.login-card) {
+    background-image:
+        linear-gradient(rgba(6, 43, 99, 0.72), rgba(8, 59, 130, 0.72)),
+        url("assets/bg_cap.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body:has(#welcomeScreen),
+body:has(#studentScreen),
+body:has(#invalidScreen),
+body:has(#bypassScreen) {
+    background-image:
+        linear-gradient(rgba(6, 43, 99, 0.60), rgba(8, 59, 130, 0.60)),
+        url("assets/bg_cap.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body:has(#welcomeScreen) #welcomeScreen,
+body:has(#studentScreen) #studentScreen,
+body:has(#invalidScreen) #invalidScreen,
+body:has(#bypassScreen) #bypassScreen {
+    background: transparent !important;
+}
+
+/* Pages that do not use the dashboard's original markup are placed in the
+ * same dashboard shell: fixed navigation on the left and a padded content
+ * canvas on the right. */
+.sg-page-shell {
+    min-height: 100vh;
+    margin-left: 255px;
+    padding: 28px;
+}
+
+.sg-page-shell > .page,
+.sg-page-shell > .container,
+.sg-page-shell > .mis-upload-page,
+.sg-page-shell > .mis-report-page,
+.sg-page-shell > .student-attendance-page {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.sg-page-shell > .header,
+.sg-page-shell > .page > .header,
+.sg-page-shell > .container > .header,
+.sg-page-shell .page-header {
+    background: linear-gradient(115deg, var(--sg-blue-900), var(--sg-blue-700)) !important;
+    border: 0 !important;
+    border-radius: var(--sg-radius) !important;
+    box-shadow: 0 8px 22px rgba(6, 43, 99, 0.14);
+    color: #ffffff !important;
+    margin-bottom: 24px !important;
+    padding: 22px 26px !important;
+}
+
+.sg-page-shell > .header h1,
+.sg-page-shell > .header p,
+.sg-page-shell > .page > .header h1,
+.sg-page-shell > .page > .header p,
+.sg-page-shell > .container > .header h1,
+.sg-page-shell > .container > .header p,
+.sg-page-shell .page-header h1,
+.sg-page-shell .page-header p {
+    color: #ffffff !important;
+}
+
+.sg-page-shell .page-header .top-actions,
+.sg-page-shell .page-header .header-actions,
+.sg-page-shell .header .actions {
+    align-items: center;
+}
+
+.sg-page-shell .page-header .btn-secondary,
+.sg-page-shell .header .back,
+.sg-page-shell .header .back-btn {
+    background: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.32) !important;
+    color: #ffffff !important;
+}
+
+a {
+    color: var(--sg-blue-800);
+}
+
+a:hover {
+    color: var(--sg-blue-950);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--sg-ink);
+}
+
+/* Shared application chrome */
+.sidebar,
+.smartgate-sidebar {
+    background: linear-gradient(180deg, var(--sg-blue-900) 0%, var(--sg-blue-950) 100%) !important;
+    color: #ffffff;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.brand,
+.smartgate-brand {
+    border-bottom-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.brand-title,
+.smartgate-brand-title,
+.user-name,
+.smartgate-user-name {
+    color: #efecec !important;
+}
+
+.brand-subtitle,
+.user-role,
+.smartgate-brand-subtitle,
+.smartgate-user-role {
+    color: #fffbfb !important;
+}
+
+.brand-title::before,
+.smartgate-brand-title::before {
+    content: "";
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin-right: 9px;
+    vertical-align: middle;
+    background: url("assets/smartgate-logo.png") center / contain no-repeat;
+}
+
+.nav-section,
+.smartgate-section-title {
+    color: #a9c9f3 !important;
+}
+
+.nav a,
+.smartgate-nav-link,
+.smartgate-logout {
+    color: #e4efff !important;
+}
+
+.nav a:hover,
+.smartgate-nav-link:hover {
+    background: rgba(255, 255, 255, 0.13) !important;
+    color: #ffffff !important;
+}
+
+.nav a.active,
+.smartgate-nav-link.active {
+    background: #ffffff !important;
+    color: var(--sg-blue-800) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.13) !important;
+}
+
+.topbar {
+    background: linear-gradient(115deg, var(--sg-blue-900), var(--sg-blue-700)) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 4px 14px rgba(6, 43, 99, 0.15);
+}
+
+.page-title,
+.page-title h1,
+.page-header h1,
+.header h1 {
+    color: var(--sg-ink);
+}
+
+.topbar .page-title,
+.topbar .page-date,
+.topbar .top-user-name,
+.topbar .top-user-role {
+    color: #ffffff !important;
+}
+
+.topbar .avatar {
+    background: var(--sg-blue-50) !important;
+    color: var(--sg-blue-900) !important;
+}
+
+.topbar .page-title,
+.header h1,
+.header .page-title {
+    font-weight: 750;
+}
+
+.header {
+    background: linear-gradient(115deg, var(--sg-blue-900), var(--sg-blue-700)) !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.header h1,
+.header p,
+.header .page-title,
+.header .page-date {
+    color: #ffffff !important;
+}
+
+.page-header {
+    border-color: var(--sg-border) !important;
+}
+
+.page-title p,
+.page-header p,
+.header p {
+    color: var(--sg-muted);
+}
+
+/* Keep the dashboard welcome panel aligned with the shared blue headers. */
+.welcome {
+    background: linear-gradient(115deg, var(--sg-blue-900), var(--sg-blue-700)) !important;
+    color: #ffffff !important;
+}
+
+.welcome h1,
+.welcome p {
+    color: #ffffff !important;
+}
+
+/* Shared surfaces */
+.card,
+.panel,
+.filter-card,
+.table-card,
+.form-card,
+.search-card,
+.summary-card,
+.stat-card,
+.role-box,
+.instructions,
+.profile-item,
+.student-result,
+.qr-card,
+.studentCard,
+.bypassCard,
+.login-card {
+    background: var(--sg-surface) !important;
+    border-color: var(--sg-border) !important;
+    box-shadow: var(--sg-shadow-soft);
+}
+
+.card,
+.panel,
+.filter-card,
+.table-card,
+.form-card,
+.search-card,
+.summary-card,
+.stat-card,
+.role-box,
+.instructions,
+.profile-item,
+.student-result,
+.qr-card {
+    border-radius: var(--sg-radius);
+}
+
+.card-title,
+.panel-header,
+.table-header,
+.table-head,
+.filter-title,
+.search-title,
+.section-title,
+.profile-name {
+    color: var(--sg-blue-900) !important;
+}
+
+.card-description,
+.page-description,
+.muted,
+.count,
+.empty,
+.no-results {
+    color: var(--sg-muted) !important;
+}
+
+.stats,
+.summary-grid,
+.stats-grid,
+.role-grid {
+    gap: 16px;
+}
+
+.stat,
+.summary-card,
+.stat-card,
+.role-box {
+    border: 1px solid var(--sg-border) !important;
+}
+
+.stat-label,
+.summary-label,
+.stat-label {
+    color: var(--sg-muted) !important;
+}
+
+.stat-value,
+.summary-value,
+.stat-number {
+    color: var(--sg-blue-800) !important;
+}
+
+/* Buttons and controls */
+.btn,
+button,
+input[type="submit"],
+input[type="button"],
+.save-btn,
+.back-btn,
+.cancel-btn,
+.back {
+    min-height: 40px;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 650;
+    transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.btn:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.save-btn:hover,
+.back-btn:hover,
+.cancel-btn:hover,
+.back:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary,
+.btn-search,
+.primary,
+.save-btn,
+button[type="submit"],
+input[type="submit"] {
+    background: var(--sg-blue-800) !important;
+    color: #ffffff !important;
+    border-color: var(--sg-blue-800) !important;
+}
+
+.btn-primary:hover,
+.btn-search:hover,
+.primary:hover,
+.save-btn:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+    background: var(--sg-blue-900) !important;
+    border-color: var(--sg-blue-900) !important;
+}
+
+.btn-secondary,
+.secondary,
+.cancel-btn,
+.back,
+.back-btn,
+.btn-light {
+    background: #edf3f9 !important;
+    color: var(--sg-blue-900) !important;
+    border: 1px solid var(--sg-border) !important;
+}
+
+.btn-secondary:hover,
+.secondary:hover,
+.cancel-btn:hover,
+.back:hover,
+.back-btn:hover,
+.btn-light:hover {
+    background: var(--sg-blue-50) !important;
+    color: var(--sg-blue-950) !important;
+}
+
+.btn-success,
+.green,
+.btn-dark,
+.btn-print {
+    background: var(--sg-blue-800) !important;
+    color: #ffffff !important;
+    border-color: var(--sg-blue-800) !important;
+}
+
+.btn-success:hover,
+.green:hover,
+.btn-dark:hover,
+.btn-print:hover {
+    background: var(--sg-blue-900) !important;
+    border-color: var(--sg-blue-900) !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea,
+.form-control,
+.filter-control,
+.search-input {
+    width: 100%;
+    min-height: 40px;
+    border: 1px solid var(--sg-border) !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    color: var(--sg-ink) !important;
+    font-family: inherit;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.filter-control:focus,
+.search-input:focus {
+    border-color: var(--sg-blue-600) !important;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14) !important;
+}
+
+label,
+.field label,
+.form-group label,
+.filter-group label {
+    color: var(--sg-ink);
+    font-weight: 650;
+}
+
+/* Tables and data displays */
+table {
+    border-color: var(--sg-border);
+}
+
+thead th,
+th {
+    background: var(--sg-blue-900) !important;
+    color: #ffffff !important;
+    border-color: var(--sg-blue-900) !important;
+    font-weight: 650;
+}
+
+td {
+    border-bottom-color: #e5edf6 !important;
+}
+
+tbody tr:hover,
+tr:hover {
+    background: var(--sg-blue-50) !important;
+}
+
+.table-wrap,
+.table-container {
+    border-color: var(--sg-border) !important;
+}
+
+/* Alerts and status indicators retain semantic colors while sharing the same shape. */
+.alert,
+.error,
+.success,
+.warning,
+.info,
+.notice {
+    border-radius: 8px !important;
+    border: 1px solid transparent;
+    box-shadow: none;
+}
+
+.error {
+    background: #fff1f2 !important;
+    color: var(--sg-danger) !important;
+    border-color: #fecdd3 !important;
+}
+
+.success {
+    background: #ecfdf5 !important;
+    color: #126b48 !important;
+    border-color: #b7ebd2 !important;
+}
+
+.warning {
+    background: #fff8e6 !important;
+    color: #8a5a0a !important;
+    border-color: #f4d58a !important;
+}
+
+.info {
+    background: var(--sg-blue-50) !important;
+    color: var(--sg-blue-900) !important;
+    border-color: #bfd7f5 !important;
+}
+
+.badge,
+.status,
+.role-badge,
+.type,
+.direction {
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.type.visitor {
+    background: var(--sg-blue-50) !important;
+    color: var(--sg-blue-800) !important;
+}
+
+.visitor .stat-number {
+    color: var(--sg-blue-800) !important;
+}
+
+.type.student {
+    background: var(--sg-blue-100) !important;
+    color: var(--sg-blue-900) !important;
+}
+
+/* Login and public display */
+.login-card {
+    border: 1px solid rgba(255, 255, 255, 0.65) !important;
+    border-radius: 16px !important;
+}
+
+.login-card .logo,
+body:has(#welcomeScreen) .logo {
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: inherit !important;
+}
+
+.login-card .logo img,
+body:has(#welcomeScreen) .logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.login-card h1,
+.login-card label,
+.login-card .subtitle {
+    color: var(--sg-ink);
+}
+
+.login-card button {
+    min-height: 48px;
+    padding: 14px;
+    font-size: 16px;
+}
+
+#welcomeScreen .welcomeTitle,
+#welcomeScreen .welcomeSubtitle {
+    color: #ffffff;
+}
+
+.studentInfo .label,
+.infoRow .label,
+.profile-label {
+    color: var(--sg-muted) !important;
+}
+
+.accessBox,
+.bypassAccessBox {
+    border-color: var(--sg-blue-600) !important;
+}
+
+/* Consistent responsive behavior */
+@media (max-width: 900px) {
+    .main,
+    .smartgate-main {
+        width: 100%;
+    }
+
+    .topbar {
+        padding-left: 68px !important;
+    }
+
+    .page,
+    .container,
+    .mis-upload-page,
+    .mis-report-page,
+    .student-attendance-page {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}
+
+@media print {
+    body {
+        background: #ffffff !important;
+    }
+}

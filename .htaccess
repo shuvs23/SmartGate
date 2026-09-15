@@ -1,0 +1,9 @@
+Options -Indexes
+
+<FilesMatch "^(db|mail_config|security|test_db)\.php$">
+    Require all denied
+</FilesMatch>
+
+<Files "SECURITY_SETUP.md">
+    Require all denied
+</Files>
